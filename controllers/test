@@ -1,0 +1,27 @@
+exports.login = function(req, res) {
+    var { email, password } = req.body;
+    User.find({})
+    .then(users => {
+      var user = users.find(user => user.email === email);
+  
+      // Si aucun utilisateur n'est trouvé avec l'email fourni, rediriger vers /login avec une erreur
+      if (!user) {
+        console.log('No user found with that email');
+        return res.redirect('/login');
+      }
+  
+    //   Comparer le mot de passe fourni avec le mot de passe stocké
+      if (password == user.password) {
+        console.log('User logged in successfully');
+        // Mettez ici votre logique pour connecter l'utilisateur
+      } else {
+        console.log('Incorrect password');
+        return res.redirect('/login');
+      }
+    
+    })
+    .catch(err => {
+      console.error(err);
+      return res.redirect('/login');
+    });
+};

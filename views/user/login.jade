@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title Login
+  body
+    h1 Login
+    form(action='/login' method='post')
+      div
+        label(for='email') Email:
+        input(type='email' id='email' name='email' required)
+      div
+        label(for='password') Password:
+        input(type='password' id='password' name='password' required)
+      div
+        input(type='submit' value='Login')
+      if user
+        a(href="/logout") Logout
+      else
+        a(href="/register") Register
+        a(href="/login") Login
