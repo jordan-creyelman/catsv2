@@ -9,8 +9,6 @@ router.get('/all', productController.getAllProducts);
 router.get('/create', productController.showCreateForm);
 
 // Route pour créer un nouveau produit
-// router.post('/create', productController.createProduct);
-//test
 router.post('/', productController.createProduct);
 //
 

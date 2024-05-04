@@ -97,7 +97,7 @@ app.use('/login', usersRouter);
 // product
 app.use('/products',productsRouter);
 //
-var port = process.env.PORT || '3001';
+var port = process.env.PORT || '3000';
 app.set('port', port);
 
 var server = http.createServer(app);

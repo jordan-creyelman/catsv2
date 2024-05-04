@@ -1,0 +1,8 @@
+
+
+block content
+ h1= product.name
+p Price: #{product.price}
+a(href="/products/#{product._id}/edit") Edit
+form(method="post" action="/products/#{product._id}/delete")
+  button(type="submit") Delete

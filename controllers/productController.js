@@ -34,7 +34,12 @@ exports.getProductById = async function(req, res, next) {
     return res.status(400).send('Invalid ObjectId');
   }
   try {
-    res.render('products/read', { title: 'Product Details', id: id });
+    //
+    let product = await Product.findById(id);
+
+    res.render('products/show', { title: 'Product Details', product: product });
+    //
+    // res.render('products/all', { title: 'Product Details', id: id });
   } catch (err) {
     next(err);
   }
@@ -60,12 +65,22 @@ exports.updateProduct = function(req, res, next) {
     });
 };
 
-exports.deleteProduct = function(req, res, next) {
-  Product.findByIdAndRemove(req.params.id)
-    .then(() => {
-      res.redirect('/products');
-    })
-    .catch(err => {
-      return next(err);
-    });
+// exports.deleteProduct = function(req, res, next) {
+//   Product.findByIdAndRemove(req.params.id)
+//     .then(() => {
+//       res.redirect('/products');
+//     })
+//     .catch(err => {
+//       return next(err);
+//     });
+// };
+exports.deleteProduct = async function(req, res, next) {
+  var productId = req.params.id;
+
+  try {
+    await Product.findByIdAndDelete(productId);
+    res.redirect('/products/all');
+  } catch (err) {
+    next(err);
+  }
 };
