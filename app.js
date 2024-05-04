@@ -7,6 +7,7 @@ var logger = require('morgan');
 var http = require('http');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var productsRouter = require('./routes/products');
 var app = express();
 var mongoose = require('mongoose');
 var userController = require('./controllers/userController');
@@ -31,6 +32,7 @@ app.post('/login', function(req, res) {
 //   console.log(req.session.user);  // Log the current user's data
 //   next();  // Pass control to the next middleware function
 // });
+// cureent user dans tous mes views
 app.use(function(req, res, next) {
   res.locals.user = req.session.user;
   next();
@@ -90,6 +92,10 @@ app.use(function(err, req, res, next) {
 // route users.js
 app.use('/users', usersRouter);
 app.use('/login', usersRouter);
+
+//
+// product
+app.use('/products',productsRouter);
 //
 var port = process.env.PORT || '3001';
 app.set('port', port);
