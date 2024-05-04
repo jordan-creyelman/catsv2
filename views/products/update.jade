@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1 Edit Product
+  form(method="post" action=`/products/${product._id}`)
+    label Name
+    input(type="text" name="name" value=product.name)
+    label Price
+    input(type="number" name="price" value=product.price)
+    button(type="submit") Update

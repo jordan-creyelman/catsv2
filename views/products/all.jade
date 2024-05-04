@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1 All Products
+  each product in products
+    h2= product.name
+    p Price: #{product.price}
+    a(href=`/products/${product._id}`) View Details

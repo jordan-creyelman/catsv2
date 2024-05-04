@@ -35,7 +35,21 @@ app.use(function(req, res, next) {
   res.locals.user = req.session.user;
   next();
 });
+// admin
+const AdminBro = require('admin-bro');
+const AdminBroExpress = require('@admin-bro/express');
+const formidable = require('express-formidable');
 
+const adminBro = new AdminBro({
+  resources: [], // Ajoutez ici vos ressources
+  rootPath: '/admin',
+});
+
+const routeradmin = AdminBroExpress.buildRouter(adminBro);
+
+
+app.use(adminBro.options.rootPath, routeradmin);
+//
 //
 
   // view engine setup
