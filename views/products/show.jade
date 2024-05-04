@@ -4,5 +4,10 @@ block content
  h1= product.name
 p Price: #{product.price}
 a(href="/products/#{product._id}/edit") Edit
+
+ form(method="post" action="/cart/add")
+    input(type="hidden" name="productId" value=product._id)
+    button(type="submit") Add to Cart
+    
 form(method="post" action="/products/#{product._id}/delete")
   button(type="submit") Delete

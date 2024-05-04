@@ -10,6 +10,9 @@ var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
 var app = express();
 var mongoose = require('mongoose');
+
+const Product = require('./models/product');
+
 var userController = require('./controllers/userController');
 mongoose.connect('mongodb://localhost/myproject', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB...'))
@@ -96,6 +99,27 @@ app.use('/login', usersRouter);
 //
 // product
 app.use('/products',productsRouter);
+//
+
+// cart
+app.use((req, res, next) => {
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+  next();
+});
+
+app.post('/cart/add', async (req, res, next) => {
+  const productId = req.body.productId;
+  const product = await Product.findById(productId);
+  req.session.cart.push(product);
+  res.redirect('/cart');
+});
+
+app.get('/cart', (req, res, next) => {
+  res.render('cart/index', { cart: req.session.cart });
+});
+
 //
 var port = process.env.PORT || '3000';
 app.set('port', port);
